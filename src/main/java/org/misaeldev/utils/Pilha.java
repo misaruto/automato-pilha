@@ -21,12 +21,18 @@ public class Pilha {
     }
     public boolean pop(List<String> itens){
         List<String> removed = new ArrayList<>();
-        itens.forEach((item)->{
-            int itemIndex = this.pilha.lastIndexOf(item);
-            this.pilha.remove(itemIndex);
+        if(this.inVazia() && itens.size()>0){
+            return false;
+        }
+
+        for (String item: itens){
+            String itemRemoved = this.pilha.remove(this.length-1);
+            if(!itemRemoved.equals(item)){
+                return false;
+            }
             removed.add(item);
             this.length--;
-        });
+        }
 
         return removed.size() == itens.size();
     }
