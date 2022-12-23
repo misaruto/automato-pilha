@@ -1,6 +1,7 @@
 package org.misaeldev.screens;
 
 import org.misaeldev.automato.Automato;
+import org.misaeldev.exceptions.AutomatoException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -49,12 +50,7 @@ public class Index extends JFrame{
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = jfc.getSelectedFile();
-                automato = new Automato(selectedFile);
-                automato.exibir();
-                sentencaInput.setEnabled(true);
-                sentencaInput.setEditable(true);
-                executarSentenca.setEnabled(true);
-                exibirResultado.setText("");
+                insntanciarAutomato(selectedFile);
             }
         }
         });
@@ -75,8 +71,20 @@ public class Index extends JFrame{
         });
     }
 
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+private void insntanciarAutomato(File selectedFile){
+    try {
+        automato = new Automato(selectedFile);
+        automato.exibir();
+        sentencaInput.setEnabled(true);
+        sentencaInput.setEditable(true);
+        executarSentenca.setEnabled(true);
+        exibirResultado.setText("");
+    }catch (AutomatoException e){
+        sentencaInput.setEnabled(false);
+        sentencaInput.setEditable(false);
+        executarSentenca.setEnabled(false);
+        exibirResultado.setForeground(Color.RED);
+        exibirResultado.setText(e.getMessage());
     }
+}
 }

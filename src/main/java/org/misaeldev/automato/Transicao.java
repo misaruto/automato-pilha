@@ -1,4 +1,4 @@
-package org.misaeldev.matriz;
+package org.misaeldev.automato;
 
 import java.util.ArrayList;
 import java.util.Arrays;

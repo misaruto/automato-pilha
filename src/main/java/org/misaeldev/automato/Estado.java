@@ -1,6 +1,4 @@
-package org.misaeldev.matriz;
-
-import org.misaeldev.automato.Automato;
+package org.misaeldev.automato;
 
 import java.util.*;
 
@@ -8,7 +6,7 @@ public class Estado {
     private boolean inEstadoInicial;
     private boolean inEstadoFinal;
     private String nmEstado;
-    private Map<String,Transicao> transicoes = new HashMap<>();
+    private Map<String, Transicao> transicoes = new HashMap<>();
 
     /**
      * Metodo para criação vindo a partir de um arquivo.
@@ -19,7 +17,7 @@ public class Estado {
      *  O simbolo - separa os itens que devem ser empilhado.
      *  OBSERVAÇÃO.: Espaço vazio será desconsiderado.
      * */
-    public Estado(String row){
+    public Estado(String row,List<String> alfabeto){
         row = row.replace(" ","");
         String cols[] = row.split(";");
         String[] parametros = cols[0].split(",");
@@ -43,7 +41,7 @@ public class Estado {
 
             String [] item = col.split(",");
 
-            letra = Automato.alfabeto.get(indexLetra);
+            letra = alfabeto.get(indexLetra);
 
             indexLetra++;
             if(item.length==1 && !item[0].isEmpty()){
@@ -93,9 +91,9 @@ public class Estado {
     }
 
 
-    public void exibir(){
+    public void exibir(List<String> alfabeto){
         System.out.printf("%s",this.getNmEstado());
-        Automato.alfabeto.forEach((letra->{
+        alfabeto.forEach((letra->{
             Transicao transicao = this.transicoes.get(letra);
             if(transicao==null){
                 System.out.printf("%24s","Sem transicao");
