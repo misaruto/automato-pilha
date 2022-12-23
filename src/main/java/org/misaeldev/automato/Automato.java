@@ -26,15 +26,19 @@ public class Automato {
 
     public boolean verificaSentenca(String sentenca){
         this.sentenca = sentenca;
+        this.pilha = new Pilha();
+        System.out.println(this.sentenca);
         Estado estadoAtual = this.estadoInicial;
         int index =0;
         while (index < this.sentenca.length() && estadoAtual!=null){
             String letra = Character.toString(this.sentenca.charAt(index));
+            System.out.println(letra);
             if(letra.equals("?") && !this.pilha.inVazia()){
                 return false;
             }
             Transicao transicao = estadoAtual.getTransicoes().get(letra);
-            if(!this.pilha.pop(transicao.getItensPop())){
+
+            if(transicao == null || !this.pilha.pop(transicao.getItensPop())){
                 return false;
             }
             this.pilha.push(transicao.getItensPush());
